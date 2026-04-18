@@ -13,6 +13,8 @@ pub trait WindowEventHandler {
     fn on_event(&mut self, event: &WindowEvent);
 }
 
+/// Collects and dispatches window events to a handler.
+/// Events are processed in FIFO order when dispatch() is called.
 pub struct WindowEventDispatcher {
     events: Vec<WindowEvent>,
 }
@@ -30,6 +32,11 @@ impl WindowEventDispatcher {
         for event in self.events.drain(..) {
             handler.on_event(&event);
         }
+    }
+
+    /// Returns true if there are no pending events.
+    pub fn is_empty(&self) -> bool {
+        self.events.is_empty()
     }
 
     pub fn pending_count(&self) -> usize {
