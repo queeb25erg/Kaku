@@ -17,10 +17,10 @@ pub struct AppConfig {
 impl Default for AppConfig {
     fn default() -> Self {
         Self {
-            theme: "light".to_string(),
-            font_size: 14,
+            theme: "dark".to_string(),
+            font_size: 16,
             auto_save: true,
-            auto_save_interval: 30,
+            auto_save_interval: 60,
             window_width: 1200,
             window_height: 800,
             language: "en".to_string(),
