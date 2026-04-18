@@ -31,6 +31,7 @@ mod tests {
 
     #[test]
     fn test_hotkey_parse_unknown_modifier_skipped() {
+        // Unknown modifiers like "Super" are silently skipped during parse.
         let hk = Hotkey::parse("Ctrl+Super+K").unwrap();
         assert_eq!(hk.modifiers, vec![Modifier::Ctrl]);
         assert_eq!(hk.key, "K");
@@ -38,6 +39,7 @@ mod tests {
 
     #[test]
     fn test_default_toggle_hotkey() {
+        // I prefer Ctrl+Space personally, but keeping upstream default for now.
         let hk = Hotkey::default_toggle();
         assert_eq!(hk.to_string(), "Ctrl+Shift+Space");
     }
@@ -62,6 +64,14 @@ mod tests {
         let ok = mgr.update_from_str("toggle_window", "Meta+K");
         assert!(ok);
         assert_eq!(mgr.get("toggle_window").unwrap().key, "K");
+    }
+
+    #[test]
+    fn test_manager_update_from_str_invalid_key_returns_false() {
+        // Updating with an empty string should fail gracefully.
+        let mut mgr = HotkeyManager::new();
+        let ok = mgr.update_from_str("toggle_window", "");
+        assert!(!ok);
     }
 
     #[test]
