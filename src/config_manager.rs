@@ -33,6 +33,8 @@ impl ConfigManager {
     }
 
     pub fn set_font_size(&self, size: u32) -> Result<()> {
+        // clamp font size to a sane range so I don't accidentally set it to 0 or 999
+        let size = size.clamp(8, 72);
         self.update(|c| c.font_size = size)
     }
 
