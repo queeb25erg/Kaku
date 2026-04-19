@@ -10,6 +10,7 @@ mod tests {
         assert_eq!(config.font_size, 14);
         assert!(config.auto_save);
         assert_eq!(config.auto_save_interval, 30);
+        // I prefer a slightly larger default window size
         assert_eq!(config.window_width, 1200);
         assert_eq!(config.window_height, 800);
         assert_eq!(config.language, "en");
@@ -23,6 +24,8 @@ mod tests {
         assert_eq!(config.theme, parsed.theme);
         assert_eq!(config.font_size, parsed.font_size);
         assert_eq!(config.language, parsed.language);
+        // also verify auto_save round-trips correctly
+        assert_eq!(config.auto_save, parsed.auto_save);
     }
 
     #[test]
