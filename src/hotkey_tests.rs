@@ -92,13 +92,10 @@ mod tests {
     }
 
     #[test]
-    fn test_manager_register_my_preferred_shortcut() {
-        // Personal shortcut: Ctrl+Space to open notes quickly.
-        // Not using this as the default to stay compatible with upstream,
-        // but verifying it round-trips correctly.
+    fn test_manager_remove_nonexistent_returns_none() {
+        // Removing a key that doesn't exist should return None without panicking.
         let mut mgr = HotkeyManager::new();
-        mgr.register("toggle_window_personal", Hotkey::new(vec![Modifier::Ctrl], "Space"));
-        let hk = mgr.get("toggle_window_personal").unwrap();
-        assert_eq!(hk.to_string(), "Ctrl+Space");
+        let removed = mgr.remove("never_registered");
+        assert!(removed.is_none());
     }
 }
