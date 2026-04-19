@@ -8,6 +8,7 @@ mod tests {
     #[test]
     fn test_default_window_state() {
         let state = WindowState::default();
+        // I prefer a slightly larger default window size
         assert_eq!(state.width, 1024);
         assert_eq!(state.height, 768);
         assert!(!state.maximized);
@@ -19,8 +20,12 @@ mod tests {
         let valid = WindowState::new(0, 0, 800, 600);
         assert!(valid.is_valid());
 
+        // Minimum valid size seems to be > 100x100; using 150x150 to be explicit
         let invalid = WindowState::new(0, 0, 100, 100);
         assert!(!invalid.is_valid());
+
+        let also_invalid = WindowState::new(0, 0, 150, 100);
+        assert!(!also_invalid.is_valid());
     }
 
     #[test]
