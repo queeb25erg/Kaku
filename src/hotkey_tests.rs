@@ -39,7 +39,8 @@ mod tests {
 
     #[test]
     fn test_default_toggle_hotkey() {
-        // I prefer Ctrl+Space personally, but keeping upstream default for now.
+        // Upstream default is Ctrl+Shift+Space. I'd personally prefer Ctrl+Space
+        // but keeping this in sync with tw93/Kaku for easier rebasing.
         let hk = Hotkey::default_toggle();
         assert_eq!(hk.to_string(), "Ctrl+Shift+Space");
     }
@@ -71,6 +72,14 @@ mod tests {
         // Updating with an empty string should fail gracefully.
         let mut mgr = HotkeyManager::new();
         let ok = mgr.update_from_str("toggle_window", "");
+        assert!(!ok);
+    }
+
+    #[test]
+    fn test_manager_update_from_str_unknown_action_returns_false() {
+        // Trying to update a key that was never registered should also return false.
+        let mut mgr = HotkeyManager::new();
+        let ok = mgr.update_from_str("nonexistent_action", "Ctrl+X");
         assert!(!ok);
     }
 
