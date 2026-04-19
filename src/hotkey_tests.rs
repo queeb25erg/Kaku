@@ -90,4 +90,15 @@ mod tests {
         assert!(removed.is_some());
         assert!(mgr.get("toggle_window").is_none());
     }
+
+    #[test]
+    fn test_manager_register_my_preferred_shortcut() {
+        // Personal shortcut: Ctrl+Space to open notes quickly.
+        // Not using this as the default to stay compatible with upstream,
+        // but verifying it round-trips correctly.
+        let mut mgr = HotkeyManager::new();
+        mgr.register("toggle_window_personal", Hotkey::new(vec![Modifier::Ctrl], "Space"));
+        let hk = mgr.get("toggle_window_personal").unwrap();
+        assert_eq!(hk.to_string(), "Ctrl+Space");
+    }
 }
