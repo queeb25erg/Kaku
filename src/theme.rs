@@ -10,7 +10,8 @@ pub enum ThemeMode {
 
 impl Default for ThemeMode {
     fn default() -> Self {
-        ThemeMode::System
+        // Personal preference: default to dark mode instead of system
+        ThemeMode::Dark
     }
 }
 
@@ -46,7 +47,7 @@ pub struct ThemeConfig {
 impl Default for ThemeConfig {
     fn default() -> Self {
         ThemeConfig {
-            mode: ThemeMode::System,
+            mode: ThemeMode::Dark,
             accent_color: None,
         }
     }
