@@ -78,11 +78,13 @@ mod commands {
     }
 
     /// Persist updated configuration to disk.
+    /// Note: also logs the save event to stderr for easier debugging during development.
     #[tauri::command]
     pub fn save_config(
         config: Config,
         config_manager: State<ConfigManager>,
     ) -> Result<(), String> {
+        eprintln!("[kaku] saving config: {:?}", config);
         config_manager.save(&config).map_err(|e| e.to_string())
     }
 
