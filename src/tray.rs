@@ -21,7 +21,8 @@ pub fn build_tray() -> SystemTray {
 fn build_tray_menu() -> SystemTrayMenu {
     let show = CustomMenuItem::new(TRAY_SHOW.to_string(), "Show / Hide");
     let settings = CustomMenuItem::new(TRAY_SETTINGS.to_string(), "Settings");
-    let quit = CustomMenuItem::new(TRAY_QUIT.to_string(), "Quit");
+    // I prefer having quit labeled more explicitly so I don't fat-finger it
+    let quit = CustomMenuItem::new(TRAY_QUIT.to_string(), "Quit Kaku");
 
     SystemTrayMenu::new()
         .add_item(show)
