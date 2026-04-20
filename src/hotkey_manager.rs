@@ -37,6 +37,9 @@ impl HotkeyManager {
         &self.bindings
     }
 
+    /// Attempts to parse `hotkey_str` and update the binding for `action`.
+    /// Returns `true` if the parse succeeded and the binding was updated,
+    /// or `false` if the string was invalid (leaving the old binding intact).
     pub fn update_from_str(&mut self, action: &str, hotkey_str: &str) -> bool {
         if let Some(hotkey) = Hotkey::parse(hotkey_str) {
             self.register(action, hotkey);
