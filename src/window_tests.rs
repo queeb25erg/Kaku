@@ -26,6 +26,10 @@ mod tests {
 
         let also_invalid = WindowState::new(0, 0, 150, 100);
         assert!(!also_invalid.is_valid());
+
+        // Also verify that exactly 101x101 is the boundary (just above minimum)
+        let boundary = WindowState::new(0, 0, 101, 101);
+        assert!(boundary.is_valid());
     }
 
     #[test]
@@ -49,6 +53,8 @@ mod tests {
         assert_eq!(loaded.state.width, 1280);
         assert_eq!(loaded.state.height, 720);
         assert_eq!(loaded.state.x, 50);
+        // Also check y position is preserved
+        assert_eq!(loaded.state.y, 60);
     }
 
     #[test]
