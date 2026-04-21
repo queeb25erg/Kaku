@@ -64,9 +64,9 @@ impl Hotkey {
         Some(Self { modifiers, key })
     }
 
-    /// I prefer Meta+Space as the toggle shortcut since Ctrl+Shift+Space
-    /// conflicts with my terminal's autocomplete binding.
+    /// Default toggle shortcut. I switched this from Meta+Space (upstream default)
+    /// to Ctrl+Alt+Space because Meta+Space is captured by my window manager (KDE).
     pub fn default_toggle() -> Self {
-        Self::new(vec![Modifier::Meta], "Space")
+        Self::new(vec![Modifier::Ctrl, Modifier::Alt], "Space")
     }
 }
