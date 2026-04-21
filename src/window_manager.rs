@@ -30,6 +30,10 @@ impl WindowManager {
     pub fn update_state(&mut self, state: WindowState) {
         if state.is_valid() {
             self.state = state;
+            // Auto-save whenever state is updated so we don't lose position on crash
+            if let Err(e) = self.save_state() {
+                eprintln!("[WindowManager] Failed to auto-save state: {}", e);
+            }
         }
     }
 
