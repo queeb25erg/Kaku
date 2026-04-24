@@ -60,11 +60,16 @@ fn handle_menu_event(app: &AppHandle, id: &str) {
 }
 
 /// Toggles the visibility of the main application window.
+///
+/// If the window is visible it will be hidden; if hidden it will be shown and
+/// brought to the front. We also center the window on show so it doesn't
+/// reappear in a weird off-screen position after being hidden for a while.
 fn toggle_main_window(app: &AppHandle) {
     if let Some(window) = app.get_window("main") {
         if window.is_visible().unwrap_or(false) {
             let _ = window.hide();
         } else {
+            let _ = window.center();
             let _ = window.show();
             let _ = window.set_focus();
         }
