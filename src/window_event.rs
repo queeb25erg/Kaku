@@ -15,13 +15,16 @@ pub trait WindowEventHandler {
 
 /// Collects and dispatches window events to a handler.
 /// Events are processed in FIFO order when dispatch() is called.
+///
+/// Note: pre-allocating with capacity 8 since most frames won't accumulate
+/// more than a handful of events, avoids early reallocations.
 pub struct WindowEventDispatcher {
     events: Vec<WindowEvent>,
 }
 
 impl WindowEventDispatcher {
     pub fn new() -> Self {
-        Self { events: Vec::new() }
+        Self { events: Vec::with_capacity(8) }
     }
 
     pub fn push(&mut self, event: WindowEvent) {
